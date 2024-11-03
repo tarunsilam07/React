@@ -1,8 +1,9 @@
 import React,{useState} from "react";
-import {getAuth,createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth,createUserWithEmailAndPassword,GoogleAuthProvider,signInWithPopup} from 'firebase/auth'
 import app from "../firebase";
 
 const auth=getAuth(app);
+const googleProvider=new GoogleAuthProvider();
 
 const SignUpPage=()=>{
 
@@ -13,6 +14,11 @@ const SignUpPage=()=>{
         createUserWithEmailAndPassword(auth,email,password);
         alert('success')
     }
+
+    const signUpWithGoogle=()=>{
+        signInWithPopup(auth,googleProvider);
+    }
+
     return (
         <>
         <div className="signup-page">
@@ -25,6 +31,9 @@ const SignUpPage=()=>{
             <br />
             <br />
             <button onClick={createUser}>Create User</button>
+            <br />
+            <br />
+            <button onClick={signUpWithGoogle}>SignIn with Google</button>
         </div>
         </>
     )
